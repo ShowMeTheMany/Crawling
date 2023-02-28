@@ -8,9 +8,9 @@ from selenium.common.exceptions import NoSuchElementException
 
 from openpyxl import Workbook
 wb = Workbook()
-ws = wb.create_sheet('유아용품')
+ws = wb.create_sheet('패션')
 wb.remove_sheet(wb['Sheet'])
-ws.append(['상품명', '가격', '분류', '재고'])
+ws.append(['상품명', '가격', '대분류', '소분류', '재고'])
 
 i = 1
 
@@ -23,7 +23,7 @@ while True:
 
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-    driver.get(url='https://www.coupang.com/np/categories/221934?page=' + str(i))
+    driver.get(url='https://www.coupang.com/np/categories/187069?page=' + str(i))
     time.sleep(5)
 
     try:
@@ -39,7 +39,7 @@ while True:
                 print('Product: ' + product)
                 print('Price: ' + price)
 
-                ws.append([product, price, '유아용품', str(10)])
+                ws.append([product, price, '의류', '남성패션', str(10)])
 
             except Exception:
                 pass
@@ -50,6 +50,6 @@ while True:
         driver.quit()
 
     except NoSuchElementException:
-        wb.save('/Users/aaron/Desktop/coupang_data/유아용품.xlsx')
+        wb.save('/Users/aaron/Desktop/coupang_data/남성의류.xlsx')
         wb.close()
         exit(0)
